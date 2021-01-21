@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.1/css/bootstrap.min.css">
+	<title>login</title>
+	<style>
+		.container {
+			position: fixed;
+			top: 350px;
+			left: 710px;
+		}
+
+		#userNameText {
+			top: 355px;
+		}
+
+		#passwordText {
+			bottom: 555px;
+		}
+
+		#userNameText, #passwordText {
+			position: fixed;
+			color: #a94442;
+		}
+	</style>
+</head>
+<body>
+<div class="jumbotron" align="center">
+	<br/>
+	<br/>
+	<br/>
+	<h1>Spring Security Oauth2.0</h1>
+	<br/>
+	<br/>
+	<br/>
+</div>
+<div class="container">
+	<form role="form" class="form-horizontal" action="/user/login" method="post">
+		<div class="form-group" id="styleUNameError">
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="username" id="userName" placeholder="userName">
+				<span  id="userNameError"></span>
+			</div>
+			<div>
+				<span id="userNameText"></span>
+			</div>
+		</div>
+		<div class="form-group" id="stylePwdError">
+			<div class="col-sm-3">
+				<input type="password" class="form-control" name="password" id="password" placeholder="password">
+				<span id="passwordError"></span>
+			</div>
+			<div>
+				<span id="passwordText"></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-3">
+				<input name="remember-me" type="checkbox" value="true"/>记住我
+				<button type="submit" data-loading-text="正在登入..." class="btn btn-primary col-sm-12" id="login">登入</button>
+			</div>
+		</div>
+	</form>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script type="text/javascript">
+
+	/*
+		botbox任何弹窗都不能写在type为submit的任何标签里
+		$('#login').click(function() {
+			bootbox.dialog({
+				size: 'large',
+				title: '温馨提示',
+				message: '确定登录么?',
+				buttons: {
+					cancel: {
+						label: '取消',
+						className: 'btn-default'
+					},
+					ok: {
+					label: '确认',
+					className: 'btn-info',
+					callback: function(result) {
+						if (result == true) {
+							if (checkUserName() & checkPassword()) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					} 
+				} 
+			}
+		})
+	})
+	*/
+
+	$(function() {
+		$('#userName').blur(checkUserName);
+		$('#password').blur(checkPassword);
+		$('#login').click(function() {
+			if (checkUserName() & checkPassword()) {
+				var btn = $(this).button('loading');
+				setTimeout(function(e) {
+					btn.button('reset');
+				}, 2000)
+				return true;
+			} else {
+				return false;
+			}
+		})
+	})
+
+	function showUserNameError() {
+		$('#styleUNameError').addClass('has-error has-feedback');
+		$('#userNameError').addClass('glyphicon glyphicon-remove form-control-feedback');
+		$('#userNameText').html ('请输入用户名');
+		$("#userName").focus(function() {
+			$('#styleUNameError').removeClass('has-error has-feedback');
+			$('#userNameError').removeClass('glyphicon glyphicon-remove form-control-feedback');
+			$('#userNameText').html('');
+			$('#styleUNameError').removeClass('has-success has-feedback');
+			$("#userNameError").removeClass('glyphicon glyphicon-ok form-control-feedback');
+		})
+	}
+
+	function hideUserNameError() {
+		$('#styleUNameError').removeClass('has-error has-feedback');
+		$('#userNameError').removeClass('glyphicon glyphicon-remove form-control-feedback');
+		$('#userNameText').html('');
+		$('#styleUNameError').addClass('has-success has-feedback');
+		$("#userNameError").addClass('glyphicon glyphicon-ok form-control-feedback');
+	}
+
+	function showPasswordError() {
+		$('#stylePwdError').addClass('has-error has-feedback');
+		$('#passwordError').addClass('glyphicon glyphicon-remove form-control-feedback');
+		$("#password").focus(function() {
+			$('#stylePwdError').removeClass('has-error has-feedback');
+			$('#passwordError').removeClass('glyphicon glyphicon-remove form-control-feedback');
+			$('#passwordText').html('');
+			$('#stylePwdError').removeClass('has-success has-feedback');
+			$('#passwordError').removeClass('glyphicon glyphicon-ok form-control-feedback');
+		})
+	}
+
+	function hidePasswordError() {
+		$('#stylePwdError').removeClass('has-error has-feedback');
+		$('#passwordError').removeClass('glyphicon glyphicon-remove form-control-feedback');
+		$('#passwordText').html('');
+		$('#stylePwdError').addClass('has-success has-feedback');
+		$('#passwordError').addClass('glyphicon glyphicon-ok form-control-feedback');
+	}
+
+	function checkUserName() {
+
+		if ($('#userName').val() == null || $('#userName').val() == undefined || $('#userName').val() == '') {
+			showUserNameError();
+			return false;
+		} else {
+			hideUserNameError();
+			return true;
+		}
+	}
+
+	function checkPassword() {
+
+		if ($('#password').val() == null || $('#password').val() == undefined || $('#password').val() == '') {
+			$('#passwordText').html('请输入密码');
+			showPasswordError();
+			return false;
+		} else if ($('#password').val().length < 6 || $('#password').val().length > 16) {
+			$('#passwordText').html('长度为6-12个字符');
+			showPasswordError();
+			return false;
+		} else {
+			hidePasswordError();
+			return true;
+		}
+	}
+</script>
+</html>

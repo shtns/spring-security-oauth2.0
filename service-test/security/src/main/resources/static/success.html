@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.1/css/bootstrap.min.css">
+    <title>success</title>
+    <style>
+        #myCarousel {
+            width: 800px;
+            height: 450px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="myCarousel">
+        <div class="carousel slide" id="carousel-example-generic">
+            <ol class="carousel-indicators">
+                <li data-toggle="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-toggle="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-toggle="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active" id="item">
+                    <img src="/img/3.jpg" alt="">
+                    <div class="carousel-caption">
+                        <h3>PUBG</h3>
+                        <p>新版本升级</p>
+                    </div>
+                </div>
+                <div class="item" id="item2">
+                    <img src="/img/4.jpg" alt="">
+                    <div class="carousel-caption">
+                        <h3>PUBG</h3>
+                        <p>新版本升级</p>
+                    </div>
+                </div>
+                <div class="item" id="item3">
+                    <img src="/img/5.jpg" alt="">
+                    <div class="carousel-caption">
+                        <h3>PUBG</h3>
+                        <p>新版本升级</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#carousel-example-generic" class="left carousel-control" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a href="#carousel-example-generic" class="right carousel-control" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>    
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script>
+    $('.carousel').carousel({
+        interval:2000
+    })
+</script>
+</html>

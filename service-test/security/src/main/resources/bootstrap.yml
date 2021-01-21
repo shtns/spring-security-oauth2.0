@@ -1,0 +1,15 @@
+server:
+  port: 8112
+
+spring:
+  application:
+    name: @project.artifactId@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos:8848
+        namespace: test
+        group: TEST_GROUP
+  profiles:
+    active: @profiles.active@
+
